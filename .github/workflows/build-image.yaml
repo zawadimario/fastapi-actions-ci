@@ -34,7 +34,7 @@ jobs:
           echo "::set-output name=tag::$tag"
 
       # Increment the image tag in the format v1.0.0 -> v1.0.1
-      - name: Increment image tag
+      - name: increment image tag
         id: increment_tag
         run: |
           current_tag=${{ steps.read_tag.outputs.tag }}
