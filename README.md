@@ -77,7 +77,7 @@ OR access the Swagger page at http://localhost:8080/docs
 
 ### Install with Terraform
 
-Please follow the [README.md](https://github.com/zawadimario/take-home-assignment-mf/tree/main/terraform#deployment) documentation. 
+Please follow the [README.md](https://github.com/zawadimario/fastapi-actions-ci/tree/main/terraform#deployment) documentation. 
 
 **Note:** This method requires at least a kubernetes cluster, terraform, Helm and Docker.
 

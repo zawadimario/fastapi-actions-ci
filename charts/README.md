@@ -8,12 +8,12 @@
 Assuming the above prerequisites are met, clone this repository and proceed to the next step.
 
 ```
-git clone https://github.com/zawadimario/take-home-assignment-mf.git
+git clone https://github.com/zawadimario/fastapi-actions-ci.git
 ```
 Change the working directory
 
 ```
-cd take-home-assignment-mf
+cd fastapi-actions-ci
 ```
 
 When testing this application locally, build the required image and replace the tag in [`values.yaml`](./charts/values.yaml) before installing the charts. Alternatively, pull the image hosted in [ 'DockerHub' ](https://hub.docker.com/r/zawadimario/sample-api/tags). 
