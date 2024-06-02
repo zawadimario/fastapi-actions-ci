@@ -15,7 +15,7 @@ resources:
   cpuRequests: 10m
   memoryRequests: 50Mi
   cpuLimits: 50m
-  memoryLimits: 120Mi
+  memoryLimits: 130Mi
 
 # Define k8s service
 service:
