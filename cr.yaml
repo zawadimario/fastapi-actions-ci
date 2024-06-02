@@ -1,7 +1,0 @@
-owner: zawadimario
-git-base-url: https://api.github.com/
-git-upload-url: https://github.com/zawadimario/fastapi-actions-ci
-git-repo: fastapi-actions-ci
-packages-with-index: true
-package-path: .mlapi
-skip-if-exists: true
