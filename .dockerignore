@@ -1,0 +1,15 @@
+*.venv
+*__pycache__/
+.dockerignore
+Dockerfile
+helm-charts
+*.git/
+*.gitignore
+*.DS_Store
+README.md
+*.github/
+LICENSE
+cr.yaml
+ct.yaml
+kind-config.yaml
+*terraform*

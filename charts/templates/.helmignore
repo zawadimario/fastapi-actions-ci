@@ -1,0 +1,37 @@
+# This pattern chooses what is ignored when building packages, including unncessary blobs
+*.DS_Store
+# Common VCS dirs
+.git/
+.gitignore
+# Backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+# IDE dirs and files
+.project
+.idea/
+*.tmproj
+.vscode/
+# Local testing proj files
+*.venv
+*.__pycache__/
+# Match any file or path named .helmignore
+.helmignore
+
+*/*/temp*
+temp?
+*/temp*
+*.github/
+LICENSE
+cr.yaml
+ct.yaml
+kind-config.yaml
+
+# Terraform workspace related files
+*.terraform
+*.terraform.lock.hcl
+*.tfstate*
+*.tfstate.*
+*_override.tf
+*_override.tf.json

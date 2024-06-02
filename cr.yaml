@@ -1,0 +1,7 @@
+owner: zawadimario
+git-base-url: https://api.github.com/
+git-upload-url: https://github.com/zawadimario/take-home-assignment-mf
+git-repo: take-home-assignment-mf
+packages-with-index: true
+package-path: .mlapi
+skip-if-exists: true

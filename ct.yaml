@@ -1,0 +1,7 @@
+remote: origin
+target-branch: main
+chart-dirs:
+  - charts
+chart-repos:
+  - take-home-assignment-mf=https://github.com/zawadimario/
+helm-extra-args: --timeout 600s

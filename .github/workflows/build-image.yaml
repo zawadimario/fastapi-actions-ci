@@ -1,0 +1,90 @@
+# This workflow checks the image tag in values.yaml, and increments it by a minor version value.
+# It then updates the tag in values.yaml pushes the changes to github, builds an image with the new tag and pushes it to github
+name: Image Builder, Updater
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+    tags: "v*.*.*"
+  pull_request:
+    branches: main
+
+jobs:
+  build_and_push:
+    name: Build and Push image to Dockerhub
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+      pull-requests: write
+    steps: 
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        
+      # Read the current image tag from values.yaml
+      - name: Read current image tag
+        id: read_tag
+        run: |
+          tag=$(awk '/tag:/ { print $2 }' ./charts/values.yaml)
+          echo "::set-output name=tag::$tag"
+
+      # Increment the image tag in the format v1.0.0 -> v1.0.1
+      - name: Increment image tag
+        id: increment_tag
+        run: |
+          current_tag=${{ steps.read_tag.outputs.tag }}
+          IFS='.' read -r -a tag_parts <<< "$current_tag"
+          major="${tag_parts[0]}"
+          minor="${tag_parts[1]}"
+          patch="${tag_parts[2]}"
+          patch=$((patch + 1))
+          next_tag="$major.$minor.$patch"
+          echo "::set-output name=next_tag::$next_tag"
+      
+      # Update values.yaml with the new image tag
+      - name: Update values.yaml
+        run: |
+          sed -i "s/tag: ${{ steps.read_tag.outputs.tag }}/tag: ${{ steps.increment_tag.outputs.next_tag }}/" ./charts/values.yaml
+      
+      # Commit and push changes to GitHub
+      - name: Commit and push changes
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add ./charts/values.yaml
+          git commit -m "Increment image tag to ${{ steps.increment_tag.outputs.next_tag }}"
+          git push
+      
+      # Set up buildex for multiplatform image builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      # Docker login in part of pre-flights
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Prepare image tag info for the new image
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: docker.io/zawadimario/sample-api
+          tags: ${{ steps.increment_tag.outputs.next_tag }}
+          
+      # Push the image to DockerHub
+      - name: Build and Push to DockerHub
+        id: push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
