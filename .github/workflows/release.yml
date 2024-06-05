@@ -58,6 +58,8 @@ jobs:
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
           echo "Got release version ${{ steps.release.outputs.version }}"
           echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       # - name: Create Release Tag
       #   id: prepare_tag
