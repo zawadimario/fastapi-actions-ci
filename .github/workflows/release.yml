@@ -18,6 +18,8 @@ jobs:
       pull-requests: read
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
+    env:
+      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,8 +56,6 @@ jobs:
           tag_prefix: v
             
       - name: Check Output Parameters
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
           echo "Got release version ${{ steps.release.outputs.version }}"
