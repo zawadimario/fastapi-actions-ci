@@ -52,7 +52,7 @@ jobs:
       - id: release
         uses: rymndhng/release-on-push-action@v0.28.0
         with:
-          bump_version_scheme: minor
+          bump_version_scheme: patch
           use_github_release_notes: true
           tag_prefix: v
           max_commits: 5
