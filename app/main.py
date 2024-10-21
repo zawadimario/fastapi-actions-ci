@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
+@app.get("/home")
 async def root():
     return {"message": "Hello, World!"}
 
