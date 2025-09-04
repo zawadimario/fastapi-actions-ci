@@ -2,7 +2,7 @@
 image:
   repository: zawadimario/sample-api # Should be the same as the name of the image before colons
   # Do not manually change this tag because GitHub workflows will take care of it.
-  tag: v1.0.3
+  tag: v1.0.0
   pullPolicy: ""
 
 # Overrides for replicas. Use a number if you need to be specific
